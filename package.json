@@ -3,13 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@material-ui/core": "*",
+    "@mui/material": "^6.1.10",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.1",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "cra-template": "1.2.0",
     "react": "^19.0.0",
+    "react-data-table-component": "^7.6.2",
     "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.2",
     "react-scripts": "5.0.1",
     "typescript": "^5.7.2"
   },
@@ -36,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/material-ui": "^0.21.18"
   }
 }
