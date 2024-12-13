@@ -44,8 +44,6 @@ export function GetUsers() {
 
   return (
     <div className="App">
-            {/* <button onClick={() => setLoading(!loading)}>Toggle Loader</button>
-            <input value={color} onChange={(input) => setColor(input.target.value)} placeholder="Color of the loader" /> */}
 
             <ScaleLoader
               color={color}
@@ -81,7 +79,7 @@ export function GetUsers() {
 
 export function GetUser() {
   // const [spinner, setSpinner] = useState(false);
-  const [userProfile, setUser] = useState([]);
+  const [userProfile, setUser] = useState<any[]>([]);
   const [userError, setUserError] = useState([]);
   const [loading, setLoading] = useState(true);
   const [color, setColor] = useState("#eeeeee");
@@ -99,21 +97,20 @@ export function GetUser() {
 
     fetch('http://localhost:3000/users/' + id)
       .then((response) => {
-        if(!response.ok) throw new Error(response.status);
-        else return response.json();
-        // if(response.ok){
-        //   response.json()
-        // }
-        
-        
+        // if(!response.ok) throw new Error(response.status);
+        // else 
+        return response.json();
       })
       .then(data => {
-        setUser(data)
+        console.log('data' + data['company'].name + data.dob)
+        const result = new Array();
+        result.push(data)
+        setUser(result[0])
         setLoading(!loading)
       })
       .catch((error) => {
         console.log(error);
-        const result = new Array()
+        const result = new Array();
         result.push('User not found')
         console.log('result ' + result[0]);
         setUserError(result[0])
@@ -135,7 +132,7 @@ return (
   <div>
     <h2>user profile</h2>
 
-    {userProfile &&
+    {userProfile['first_name'] &&
       <div>
         <img src={userProfile['avatar']} />
         <p>{userProfile['id']}  </p>
@@ -143,14 +140,13 @@ return (
         <p></p>
         <p>{userProfile['email']}</p>
         <p>{userProfile['dob']}</p>
-        {/* <p>{JSON.parse(userProfile['company'].name)}</p>   */}
-        {/* <p>{JSON.stringify(userProfile['company'].department)}</p> */}
+        <p>{userProfile['company'].name} {userProfile['company'].department}</p>
         <div>
-          {/* {userProfile['skills'].map((data, i) => {
-            return (
-              <p>{data}</p>
-            )
-          })} */}
+          {userProfile['skills'].map((data, i) => {
+            <div key={i}>
+              <p>{JSON.stringify(data)}</p>
+            </div>
+          })}
         </div>
       </div>
 }
