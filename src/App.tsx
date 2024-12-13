@@ -1,9 +1,11 @@
 // import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { getUser, getUsers } from './hooks/GetUsers.tsx';
-// import UsersList from './components/usersList.tsx';
+import { GetUser, GetUsers } from './components/GetUsers.tsx';
+import Home from './components/Home.tsx';
+// import UsersList from './components/GetUsers.tsx';
 import { Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 
 import Button from '@mui/material/Button';
@@ -19,12 +21,12 @@ function App() {
   useEffect(() => {
     // setSpinner(true);
     // let mounted = true;
-    getUsers()
-      .then(items => {
-        // if(mounted) {
-          setUsers(items)
-        // }
-      })
+    // getUsers()
+    //   .then(items => {
+    //     // if(mounted) {
+    //       setUsers(items)
+    //     // }
+    //   })
   }, []);
   
   return (
@@ -32,43 +34,16 @@ function App() {
       <header className="App-header">
         Coolplanet
       </header>
-
+      <>
+          {/* <GetUsers /> */}
+         <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/users" element={<GetUsers />} />
+            <Route path="/users/:id" element={<GetUser />} />
+            {/* <Route path="*" element={<NoMatch />} /> */}
+         </Routes>
+      </>
       <div>
-        <h2>users</h2>
-        {
-          users.map((data) => {
-            return(
-              <ul>
-                <Link to={'./users/' + data['id']}>
-                  <Button onClick={() => {
-                    getUser(data['id'])
-                      .then(items => {
-                      // if(mounted) {
-                        setUser(data)
-                        console.log(data)
-                      // }
-                    })
-                    console.log([data['id']])
-                  }}
-                > 
-                
-                <li key={data['id']}> {data['first_name'] } {data['last_name']}</li>
-                  </Button>
-                </Link>
-                  <>
-                    {/* {usersList} */}
-                    {/* <p>{data['first_name']}</p>
-                    <p>{data.last_name}</p>
-                    <p>{data.email}</p>
-                    <p>{data['company'].name}</p>
-                    <p>{data.company.name}</p> 
-                    <p>{data.dob}</p>
-                    <img src={data.avatar} alt=""/>  */}
-                  </>
-              </ul>
-            )
-          })
-        }    
       </div>
     </div>
   );
