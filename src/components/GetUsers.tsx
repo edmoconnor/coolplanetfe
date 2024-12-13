@@ -8,6 +8,7 @@ import { Link, useParams } from 'react-router-dom';
 export function GetUsers() {
     // const [spinner, setSpinner] = useState(false);
     const [users, setUsers] = useState([]);
+    console.log('hnbjhbughvgyvg')
     useEffect(() => {
     //   let mounted = true;
     //     useGetUsers()
@@ -32,9 +33,9 @@ export function GetUsers() {
     <div>
       <h2>users</h2>
       {
-        users.map((data) => {
+        users.map((data, i) => {
           return(
-            <ul>
+            <ul key={i}>
               {/* <Button onClick={() => {
                   console.log([data['id']])
                   
@@ -58,7 +59,11 @@ export function GetUser() {
   // const [spinner, setSpinner] = useState(false);
   const [userProfile, setUser] = useState([]);
   const {id} = useParams();
-  console.log('wucvwjcd' + id)
+  console.log('GetUser ' + id)
+
+  if(id){
+      
+  }
   useEffect(() => {
     // useGetUser(id)
     //   .then(items => {
@@ -73,28 +78,51 @@ export function GetUser() {
       .then(data => {
         setUser(data)
       })
-      // .catch(
-      //   console.log('uvwchvj')
-      // )
+      .catch((error) => {
+        console.log(error);
+        const result = new Array()
+        result.push('User not found')
+        console.log(result);
+        setUser(result[0])
+      });
   
   }, [id]);
 
 return (
   <div className="App">
+
   <div>
     <h2>user profile</h2>
     <> 
+      <img src={userProfile['avatar']} />
       <p>{userProfile['id']}  </p>
       <p>{userProfile['first_name']}</p>
       <p>{userProfile['last_name']}</p>
       <p>{userProfile['email']}</p>
       <p>{userProfile['dob']}</p>
-      <img src={userProfile['avatar']} />
+      <p>{JSON.stringify(userProfile['company'].name)}</p>
+      {/* <p>{JSON.stringify(userProfile['company'].department)}</p> */}
+      <div>
+        {/* {userProfile['skills'].map(data => {
+          return (
+            <p>{data}</p>
+          )
+        })} */}
+      </div>
+      
     </> 
+  </div>
+  <div>
+    {userProfile.length > 0 && 
+      <p>
+        {userProfile} 
+      </p>
+    }  
   </div>
 </div>
 );
 }
+
 
 
 
