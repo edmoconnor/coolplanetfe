@@ -8,12 +8,24 @@ import { Link, useParams } from 'react-router-dom';
 export function GetUsers() {
     // const [spinner, setSpinner] = useState(false);
     const [users, setUsers] = useState([]);
-
-    useGetUsers()
-      .then(items => {
-        setUsers(items)
-        console.log(items)
-    })
+    useEffect(() => {
+    //   let mounted = true;
+    //     useGetUsers()
+    //       .then(items => {
+    //         if(mounted) {
+    //           setUsers(items)
+    //           console.log(items)
+    //         }
+    //     })
+    //     return () => mounted = false;
+    //   console.log('gvhg')
+  // return (
+    fetch('http://localhost:3000/users')
+      .then(response => response.json())
+      .then(data => {setUsers(data)})
+    
+  // )
+    }, []);
 
   return (
     <div className="App">
@@ -23,14 +35,14 @@ export function GetUsers() {
         users.map((data) => {
           return(
             <ul>
-              <Button onClick={() => {
+              {/* <Button onClick={() => {
                   console.log([data['id']])
                   
-                }}>
+                }}> */}
                 <Link to={`/users/${data['id']}`}>
                     <li key={data['id']}> {data['first_name'] } {data['last_name']}</li>                 
                 </Link>
-              </Button>
+              {/* </Button> */}
 
             </ul>
           )
@@ -42,26 +54,43 @@ export function GetUsers() {
 );
 }
 
-
 export function GetUser() {
   // const [spinner, setSpinner] = useState(false);
-  const [user, setUser] = useState([]);
+  const [userProfile, setUser] = useState([]);
   const {id} = useParams();
   console.log('wucvwjcd' + id)
+  useEffect(() => {
+    // useGetUser(id)
+    //   .then(items => {
+    //     const array = [];
+        
+    //     // setUser(items)
+    //     console.log(items)
+    // })
+
+    fetch('http://localhost:3000/users/' + id)
+      .then(response => response.json())
+      .then(data => {
+        setUser(data)
+      })
+      // .catch(
+      //   console.log('uvwchvj')
+      // )
   
-  useGetUser(id)
-    .then(items => {
-      const array = [];
-      
-      setUser(array)
-      console.log(array[0])
-  })
+  }, [id]);
 
 return (
   <div className="App">
   <div>
-    <h2>users</h2>
-    <> {user}  </> 
+    <h2>user profile</h2>
+    <> 
+      <p>{userProfile['id']}  </p>
+      <p>{userProfile['first_name']}</p>
+      <p>{userProfile['last_name']}</p>
+      <p>{userProfile['email']}</p>
+      <p>{userProfile['dob']}</p>
+      <img src={userProfile['avatar']} />
+    </> 
   </div>
 </div>
 );
