@@ -5,8 +5,6 @@ import Home from './components/Home.tsx';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
-  // const [spinner, setSpinner] = useState(false);
-  
   return (
     <div className="App">
       <header className="App-header">
@@ -20,8 +18,7 @@ function App() {
             <Route path="*" element={<Navigate replace to="/users" />} />
          </Routes>
       </>
-      <div>
-      </div>
+
     </div>
   );
 }

@@ -52,5 +52,44 @@ li {
   margin-left: 10px;
   font-size: 22px;
   float: left;
-  padding-inline-start: 0;   
+  padding-inline-start: 0;
+  list-style-type: none;   
+}
+
+p {
+  width: 100%;
+  margin-left: 10px;
+  font-size: 20px;
+  float: left;
+  padding-inline-start: 0; 
+  text-align: left;
+
+  display: block;
+  position:relative;
+  list-style: square;
+}
+
+.details{
+  float:left;
+}
+.avatar{
+  
+  width: 10%;
+  float: left;
+  height: 500px
+}
+
+h1{
+  float: left
+}
+
+Link {
+  padding-inline-start: 0; 
+  text-align: left;
+  width: 100%;
+  display: block;
+  position:relative;
+  list-style: none;
+  float: left;
+
 }
