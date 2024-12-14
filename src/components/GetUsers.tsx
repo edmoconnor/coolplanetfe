@@ -49,27 +49,30 @@ export function GetUsers() {
 
   return (
     <div className="App">
+    <h2>Users List</h2>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 250 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>First Name</TableCell>
             <TableCell align="left">Last Name</TableCell>
+            <TableCell style={{width:"90%"}}></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {users.map((row) => (
-            
             <TableRow
+              component={Link} to={`/users/${row['id']}/`}
               key={row['name']}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <Link to={`/users/${row['id']}`}>
+              {/* <Link to={`/users/${row['id']}`}> */}
                 <TableCell component="th" scope="row">
                   {row['first_name']}
                 </TableCell>
                 <TableCell align="left">{row['last_name']}</TableCell>
-              </Link>
+                <TableCell></TableCell>
+              {/* </Link> */}
             </TableRow>
             
           ))}
@@ -83,7 +86,7 @@ export function GetUsers() {
         aria-label="Loading Spinner"
         data-testid="loader"
       />
-      <div>
+      {/* <div>
         <h2>users</h2>
         {
           users.map((data, i) => {
@@ -96,7 +99,7 @@ export function GetUsers() {
             )
           })
         }    
-      </div>
+      </div> */}
     </div> 
   );
 }
@@ -148,18 +151,18 @@ export function GetUser() {
         data-testid="loader"
       />
       <div>
-        <h2>user profile</h2>
+        <h2>User Details</h2>
         {userProfile['first_name'] &&
           <>
             <div className='avatar'><img src={userProfile['avatar']} /></div>
-            <h1>Name: {userProfile['first_name']} {userProfile['last_name']}</h1>
+            <h1>{userProfile['first_name']} {userProfile['last_name']}</h1>
             <div className='details'>
               <p>ID: {userProfile['id']}  </p>
               <p>Email: {userProfile['email']} Verified: {userProfile['emailVerified'].toString()}</p>
               <p>DOB: {userProfile['dob']}</p>
               <p>Company: {userProfile['company'].name} </p>
               <p>Department: {userProfile['company'].department}</p>
-              <p>Skills: {userProfile['skills']}</p>
+              <p>Skills: {userProfile['skills'].map((skills) => <li>{skills}</li>)}</p>
             </div>
           </>
         }

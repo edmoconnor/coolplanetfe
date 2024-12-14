@@ -71,6 +71,7 @@ p {
 
 .details{
   float:left;
+  width: 80%;
 }
 .avatar{
   
@@ -92,4 +93,12 @@ Link {
   list-style: none;
   float: left;
 
+}
+
+.tableCell {
+  float:left;
+}
+
+a{
+  text-decoration: none;
 }
