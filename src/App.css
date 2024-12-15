@@ -50,55 +50,61 @@ ul {
 li {
   width: 100%;
   margin-left: 10px;
-  font-size: 22px;
+  font-size: 18px;
   float: left;
-  padding-inline-start: 0;
   list-style-type: none;   
 }
 
 p {
   width: 100%;
-  margin-left: 10px;
-  font-size: 20px;
+  margin: 5px 5px 5px 15px;
+  font-size: 18px;
   float: left;
-  padding-inline-start: 0; 
   text-align: left;
 
-  display: block;
-  position:relative;
-  list-style: square;
 }
 
 .details{
   float:left;
   width: 80%;
 }
+
 .avatar{
-  
   width: 10%;
   float: left;
   height: 500px
 }
 
 h1{
-  float: left
-}
-
-Link {
-  padding-inline-start: 0; 
-  text-align: left;
-  width: 100%;
-  display: block;
-  position:relative;
-  list-style: none;
   float: left;
-
+  width: 80%;
+  text-align: left;
 }
 
-.tableCell {
-  float:left;
+h2{
+  font-size: 38px;
+  margin-left: 10px;
+  float: left;
+  width: 100%;
+  text-align: left;
 }
 
 a{
   text-decoration: none;
+}
+
+.check{
+  color: green;
+  vertical-align:middle;
+}
+
+.clear{
+  color: red;
+  vertical-align:middle;
+}
+
+.p1{
+  font-weight: bold;
+  float: left;
+  text-align: left;
 }

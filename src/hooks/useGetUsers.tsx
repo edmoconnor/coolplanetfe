@@ -3,7 +3,6 @@ export function useGetUsers() {
   return (
     fetch('http://localhost:3000/users')
     .then(data => data.json())
-    
   )
 }
 

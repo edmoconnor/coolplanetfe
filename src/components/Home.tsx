@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react';
-    import Button from '@mui/material/Button';
+import React from 'react';
 
 export default function Home() {
-    
-
     return (
-    <div className="App">
-        <div>
-            <Button onClick={() => {
-            }}
-> 
-            </Button>
+        <div className="App">
+            <div>
+            <p>CoolPlanet</p>
             </div>
         </div>
     )

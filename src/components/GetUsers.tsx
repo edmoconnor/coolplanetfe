@@ -13,6 +13,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
+import { useNavigate } from "react-router-dom";
 
 const override: CSSProperties = {
   display: "block",
@@ -25,9 +28,8 @@ export function GetUsers() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [color, setColor] = useState("");
-    
-    console.log('GetUsers')
-    useEffect(() => {
+    let navigate = useNavigate();
+
     //   let mounted = true;
     //     useGetUsers()
     //       .then(items => {
@@ -39,46 +41,43 @@ export function GetUsers() {
     //     return () => mounted = false;
     //   console.log('gvhg')
 
-    fetch('http://localhost:3000/users')
-      .then(response => response.json())
-      .then(data => {
-        setUsers(data)
-        setLoading(!loading)
-      })
+    useEffect(() => {
+      fetch('http://localhost:8000/users')
+        .then(response => response.json())
+        .then(data => {
+          setUsers(data)
+          setLoading(!loading)
+        })
     }, []);
 
   return (
     <div className="App">
-    <h2>Users List</h2>
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 250 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>First Name</TableCell>
-            <TableCell align="left">Last Name</TableCell>
-            <TableCell style={{width:"90%"}}></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users.map((row) => (
-            <TableRow
-              component={Link} to={`/users/${row['id']}/`}
-              key={row['name']}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              {/* <Link to={`/users/${row['id']}`}> */}
-                <TableCell component="th" scope="row">
-                  {row['first_name']}
-                </TableCell>
-                <TableCell align="left">{row['last_name']}</TableCell>
-                <TableCell></TableCell>
-              {/* </Link> */}
+      <h2>Users List</h2>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell style={{width:"90%"}}></TableCell>
             </TableRow>
-            
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {users.map((row, i) => (
+              <TableRow
+                component={Link} to={`/users/${row['id']}/`}
+                // onClick={() => { navigate(`/users/${row['id']}`); }}
+                key={i}
+              >
+                <TableCell component="th" scope="row">
+                  {row['first_name']} {row['last_name']}
+                </TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+              
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <ScaleLoader
         color={color}
         loading={loading}
@@ -86,42 +85,27 @@ export function GetUsers() {
         aria-label="Loading Spinner"
         data-testid="loader"
       />
-      {/* <div>
-        <h2>users</h2>
-        {
-          users.map((data, i) => {
-            return(
-              <ul key={i}>
-                <Link to={`/users/${data['id']}`}>
-                  <li key={data['id']}> {data['first_name'] } {data['last_name']}</li>                 
-                </Link>
-              </ul>
-            )
-          })
-        }    
-      </div> */}
     </div> 
   );
 }
 
 export function GetUser() {
-  const [userProfile, setUser] = useState<any[]>([]);
+  const [userProfile, setUser] = useState([]);
   const [userError, setUserError] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [color, setColor] = useState("#eeeeee");
+  const [color, setColor] = useState("#ffffff");
   const {id} = useParams();
-  console.log('GetUser ' + id)
+
+  // useGetUser(id)
+  //   .then(items => {
+  //     const array = [];
+      
+  //     // setUser(items)
+  //     console.log(items)
+  // })
 
   useEffect(() => {
-    // useGetUser(id)
-    //   .then(items => {
-    //     const array = [];
-        
-    //     // setUser(items)
-    //     console.log(items)
-    // })
-
-    fetch('http://localhost:3000/users/' + id)
+    fetch('http://localhost:8000/users/' + id)
       .then((response) => {
         return response.json();
       })
@@ -152,18 +136,25 @@ export function GetUser() {
       />
       <div>
         <h2>User Details</h2>
-        {userProfile['first_name'] &&
+        {userProfile['id'] &&
           <>
-            <div className='avatar'><img src={userProfile['avatar']} /></div>
+            <div className='avatar'><img src={userProfile['avatar']} alt=" "/></div>
             <h1>{userProfile['first_name']} {userProfile['last_name']}</h1>
-            <div className='details'>
-              <p>ID: {userProfile['id']}  </p>
-              <p>Email: {userProfile['email']} Verified: {userProfile['emailVerified'].toString()}</p>
-              <p>DOB: {userProfile['dob']}</p>
-              <p>Company: {userProfile['company'].name} </p>
-              <p>Department: {userProfile['company'].department}</p>
-              <p>Skills: {userProfile['skills'].map((skills) => <li>{skills}</li>)}</p>
-            </div>
+            <div>
+              <div className='details'>
+                <p>ID: {userProfile['id']}  </p>
+                <p>Email: {userProfile['email']} Verified: 
+                  {userProfile['emailVerified'].toString() === 'true' ? 
+                    <CheckIcon className='check'/> : 
+                    <ClearIcon className='clear'/>
+                  }
+                </p>
+                <p>DOB: {userProfile['dob']}</p>
+                <p>Company: {userProfile['company'].name} </p>
+                <p>Department: {userProfile['company'].department}</p>
+                <p>Skills: {userProfile['skills'].map((skills, i) => <li key={i}>{skills}</li>)}</p>
+              </div>
+            </div> 
           </>
         }
 
